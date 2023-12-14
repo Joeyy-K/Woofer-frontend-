@@ -2,7 +2,7 @@ import RegisterPage from "./_auth/forms/Register";
 import SignInForm from "./_auth/forms/SignInForm";
 import AuthLayout from "./_auth/AuthLayout";
 import { Routes, Route } from "react-router-dom";
-import { HomePage } from "./_root/pages";
+import { HomePage, ProfilePage, VetPage, SettingsPage } from "./_root/pages";
 import RootLayout from "./_root/RootLayout";
 
 export default function App() {
@@ -18,6 +18,9 @@ export default function App() {
         {/* private routes */}
         <Route element={<RootLayout />}>
           <Route index element={<HomePage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/veterinary" element={<VetPage />} />
+          <Route path="settings" element={<SettingsPage />} />
         </Route>
       </Routes>
       

@@ -58,7 +58,14 @@ const RegisterPage = () => {
         if (response.ok) {
           // Registration successful
           setStatus('Registration successful!');
-          navigate('/signin')
+          // Reset form and clear error
+          setFirstName('');
+          setLastName('');
+          setUsername('');
+          setEmail('');
+          setPassword('');
+          setError('');
+          navigate('/')
         } else if (response.status === 409) {
           // Username already taken
           return response.json().then((data) => {

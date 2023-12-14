@@ -1,8 +1,10 @@
 import React from 'react'
+import VetCard from '../../components/ui/VetCard'
 
 const HomePage = () => {
   return (
-    <div>HomePage</div>
+    
+    <div><VetCard /></div>
   )
 }
 
