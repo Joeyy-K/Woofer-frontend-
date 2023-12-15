@@ -1,51 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import VetCard from '../../components/ui/VetCard';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const VetPage = () => {
-  const [veterinaries, setVeterinaries] = useState([]);
+  const { id } = useParams();
+  const [vetDetails, setVetDetails] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchVetDetails = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:4000/veterinaries/');
+        const response = await fetch(`http://127.0.0.1:4000/veterinary/${id}`);
         if (response.ok) {
           const data = await response.json();
-          setVeterinaries(data);
+          setVetDetails(data);
         } else {
-          console.error('Failed to fetch data');
+          console.error('Failed to fetch vet details');
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching vet details:', error);
       }
     };
 
-    fetchData();
-  }, []);
+    fetchVetDetails();
+  }, [id]);
 
+  if (!vetDetails) {
+    return <div className="text-center mt-8">Loading...</div>;
+  }
   return (
-    <div className="flex flex-wrap">
-      {veterinaries.map((veterinary) => (
-        <div key={veterinary.id} className="flex w-full rounded overflow-hidden shadow-lg m-4">
-          <img className="w-1/12" src='/public/icons/account.svg' alt={`${veterinary.first_name} ${veterinary.last_name}`} />
-          <div className="w-9/12 px-6 py-4">
-            <div className="font-bold text-xl mb-2">{`${veterinary.first_name} ${veterinary.last_name}`}</div>
-            <hr className="mb-2 w-full border-gray-600" />
-            <p className="text-gray-700 text-base mb-2"><span className='font-bold'>Location: </span>{veterinary.location}</p>
-            <p className="text-gray-700 text-base mb-2"><span className='font-bold'>Gender: </span>{veterinary.gender}</p>
-            <p className="text-gray-700 text-base mb-2"><span className='font-bold'>Email: </span>{veterinary.email}</p>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-1000 mr-2">
-              {new Date(veterinary.created_at).toLocaleDateString()}
-            </span>
-          </div>
-          <div className="w-2/12 flex items-center justify-end px-6 py-4">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              See Details
-            </button>
-          </div>
+      <div className="flex items-center justify-start mt-8 w-3/4 mx-auto">
+        <img className="w-24 h-24 rounded-full mr-8" src="/icons/veterinary.svg" alt={`${vetDetails.first_name} ${vetDetails.last_name}`} />
+        <div>
+          <p className="text-xl py-1 font-bold">{`${vetDetails.first_name} ${vetDetails.last_name}`}</p>
+          <p className="text-gray-600 py-1"><span className='font-bold'>Location: </span>{vetDetails.location}</p>
+          <p className="text-gray-600 py-1"><span className='font-bold'>Gender: </span>{vetDetails.gender}</p>
+          <p className="text-gray-600 py-1"><span className='font-bold'>Email: </span>{vetDetails.email}</p>
+          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mt-2">
+            {new Date(vetDetails.created_at).toLocaleDateString()}
+          </span>
         </div>
-      ))}
-    </div>
-  );  
+      </div>
+    );    
 };
 
 export default VetPage;
