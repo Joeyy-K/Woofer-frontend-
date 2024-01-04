@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 const VetPage = () => {
   const { id } = useParams();
-  const [vetDetails, setVetDetails] = useState(null);
+  const [vet, setVetDetails] = useState(null);
 
   useEffect(() => {
     const fetchVetDetails = async () => {
@@ -23,23 +23,24 @@ const VetPage = () => {
     fetchVetDetails();
   }, [id]);
 
-  if (!vetDetails) {
-    return <div className="text-center mt-8">Loading...</div>;
+  if (!vet) {
+    return <div>Loading...</div>
   }
-  return (
-      <div className="flex items-center justify-start mt-8 w-3/4 mx-auto">
-        <img className="w-24 h-24 rounded-full mr-8" src="/icons/veterinary.svg" alt={`${vetDetails.first_name} ${vetDetails.last_name}`} />
-        <div>
-          <p className="text-xl py-1 font-bold">{`${vetDetails.first_name} ${vetDetails.last_name}`}</p>
-          <p className="text-gray-600 py-1"><span className='font-bold'>Location: </span>{vetDetails.location}</p>
-          <p className="text-gray-600 py-1"><span className='font-bold'>Gender: </span>{vetDetails.gender}</p>
-          <p className="text-gray-600 py-1"><span className='font-bold'>Email: </span>{vetDetails.email}</p>
-          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mt-2">
-            {new Date(vetDetails.created_at).toLocaleDateString()}
-          </span>
-        </div>
-      </div>
-    );    
-};
 
-export default VetPage;
+  return (
+    <div className="flex items-center justify-start mt-8 w-3/4 mx-auto">
+      <img className="w-24 h-24 rounded-full mr-8" src="/icons/veterinary.svg" alt={`${vet.first_name} ${vet.last_name}`} />
+      <div>
+        <p className="text-xl py-1 font-bold">{`${vet.first_name} ${vet.last_name}`}</p>
+        <p className="text-gray-600 py-1"><span className='font-bold'>Location: </span>{vet.location}</p>
+        <p className="text-gray-600 py-1"><span className='font-bold'>Gender: </span>{vet.gender}</p>
+        <p className="text-gray-600 py-1"><span className='font-bold'>Email: </span>{vet.email}</p>
+        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mt-2">
+          {new Date(vet.created_at).toLocaleDateString()}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+export default VetPage

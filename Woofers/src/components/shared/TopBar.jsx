@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../UI/Searchbar";
 
-
 const TopBar = () => {
 
   const navigate = useNavigate();

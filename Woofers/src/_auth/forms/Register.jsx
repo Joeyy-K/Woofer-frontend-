@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react'; // import useContext
 import { useNavigate, Link } from "react-router-dom"
+import { AuthContext } from '../../contexts/AuthContext'; // import the AuthContext
+import { UserContext } from '../../contexts/UserContext';
+import { CSRFToken } from '../../components/CSRFToken';
+import Cookies from 'js-cookie'
 
 const RegisterPage = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [status, setStatus] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { setIsAuthenticated } = useContext(AuthContext); // consume the AuthContext
+  const { setUser } = useContext(UserContext); // consume the UserContext
 
-  const isFormValid = firstName && lastName && username && email && password;
+  const isFormValid = username && email && password;
 
   const validatePassword = (password) => {
     const passwordRegex = /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/;
@@ -41,65 +45,53 @@ const RegisterPage = () => {
     }
 
     // Perform registration logic
-    fetch('http://127.0.0.1:4000/register/', {
+    fetch('http://127.0.0.1:4000/user/register/', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-CSRFToken': console.log(Cookies.get('csrftoken'))
       },
       body: JSON.stringify({
-        first_name: firstName,
-        last_name: lastName,
-        username,
-        email,
-        password
+        username: username,
+        email: email,
+        password: password
       })
     })
-      .then((response) => {
-        if (response.ok) {
-          // Registration successful
+    .then((response) => {
+      if (response.ok) { 
+        return response.json().then((data) => {
+          const userToken = data.token; 
+          localStorage.setItem('userToken', userToken);
           setStatus('Registration successful!');
-          // Reset form and clear error
-          setFirstName('');
-          setLastName('');
           setUsername('');
           setEmail('');
           setPassword('');
           setError('');
+          setIsAuthenticated(true); // set isAuthenticated to true after successful registration
+          setUser(data.user);
+          console.log(data.user);
           navigate('/')
-        } else if (response.status === 409) {
-          // Username already taken
-          return response.json().then((data) => {
-            setError(data.message);
-          });
-        } else {
-          // Registration error
-          setError('An error occurred during registration');
-        }
-      })
-      .catch((error) => {
-        console.error('Registration error:', error);
+        });
+      } else if (response.status === 409) {
+        return response.json().then((data) => {
+          setError(data.message);
+        });
+      } else {
         setError('An error occurred during registration');
-      });
+      }
+    })
+    .catch((error) => {
+      console.error('Registration error:', error);
+      setError('An error occurred during registration');
+    });
   };
+
 
   return (
     <div className="max-w-md sm:w-420 flex-center flex-col mb-20 mx-auto">
       <h1 className="text-2xl font-bold mb-7 sm:pt-12">Create a new account</h1>
       {error && <p className="text-red-500 mb-4">{error}</p>}
-      <input
-        type="text"
-        placeholder="First Name"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-        className="border border-gray-300 p-2 w-full block"
-      />
-      <input
-        type="text"
-        placeholder="Last Name"
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-        className="border border-gray-300 p-2 mt-5 w-full block"
-      />
+      <CSRFToken />
       <input
         type="text"
         placeholder="Username"
