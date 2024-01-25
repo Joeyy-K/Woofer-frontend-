@@ -2,8 +2,7 @@ import React, { useState, useContext } from 'react'; // import useContext
 import { useNavigate, Link } from "react-router-dom"
 import { AuthContext } from '../../contexts/AuthContext'; // import the AuthContext
 import { UserContext } from '../../contexts/UserContext';
-import { CSRFToken } from '../../components/CSRFToken';
-import Cookies from 'js-cookie'
+import { getCookie } from '../../components/cookie/utils';
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
@@ -14,6 +13,7 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const { setIsAuthenticated } = useContext(AuthContext); // consume the AuthContext
   const { setUser } = useContext(UserContext); // consume the UserContext
+  let csrftoken = getCookie('csrftoken');
 
   const isFormValid = username && email && password;
 
@@ -49,7 +49,7 @@ const RegisterPage = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': console.log(Cookies.get('csrftoken'))
+        'X-CSRFToken': csrftoken
       },
       body: JSON.stringify({
         username: username,
@@ -91,7 +91,6 @@ const RegisterPage = () => {
     <div className="max-w-md sm:w-420 flex-center flex-col mb-20 mx-auto">
       <h1 className="text-2xl font-bold mb-7 sm:pt-12">Create a new account</h1>
       {error && <p className="text-red-500 mb-4">{error}</p>}
-      <CSRFToken />
       <input
         type="text"
         placeholder="Username"

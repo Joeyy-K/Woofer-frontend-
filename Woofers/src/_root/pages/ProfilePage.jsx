@@ -1,77 +1,114 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
-import { getCookie } from '../../components/cookie/utils';
 
 const ProfilePage = () => {
   const { user } = useContext(UserContext);
-  const [isEditing, setIsEditing] = useState(false); // Add this state variable
-
-  const handleEdit = () => {
-    setIsEditing(!isEditing);
-  };
-
-  const handleSave = () => {
-    // Get the new values from the input fields
-    const newUsername = document.getElementById('username').value;
-    const newEmail = document.getElementById('email').value;
-  
-    fetch('http://127.0.0.1:4000/user/user/update/', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': console.log(`Token ${localStorage.getItem('userToken')}`),
-      },
-      body: JSON.stringify({
-        username: newUsername,
-        email: newEmail
-      })
-    })
-    .then(response => response.json())
-    .then(data => {
-      // Update the user context with the new data
-      setUser(data);
-      // Set isEditing back to false
-      setIsEditing(false);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-  };
-  
 
   if (user) {
     return (
-      <div className="p-16">
-        <div className="p-8 bg-white shadow mt-10">
-          <div className="grid items-center grid-cols-1 md:grid-cols-3 justify-center">
-            <div className="w-24 h-28 bg-indigo-100 rounded-full shadow-2xl top-0 -mt-24 flex items-center justify-center text-indigo-500">
-              <img className="w-24 h-24 rounded-full" src="/icons/account.svg" alt={`${user.username}`} />
+      <div className="container mx-auto my-1 mb-12">
+        <div className="flex flex-wrap">
+          <div className="w-full md:w-1/5 border-r">
+            <div className="flex flex-col items-center text-center p-3 py-5">
+              <img className="rounded-full mt-5 w-36" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"/>
+              <span className="font-semibold">{user.username}</span>
+              <span className="text-gray-500">{user.email}</span>
             </div>
           </div>
-          <div className="mt-16 border-b pb-10">
-            {isEditing ? (
-              <div>
-                <input id="username" type="text" defaultValue={user.username} />
-                <input id="email" type="text" defaultValue={user.email} />
+          <div className="w-full md:w-1/2 border-r">
+            <div className="p-4 py-0">
+              <div className="flex justify-between items-center mb-3">
+                <h4 className="text-right font-bold">User Profile</h4>
               </div>
-            ) : (
-              <div>
-                <h1 className="text-4xl font-medium text-gray-700">{user.username}</h1>
-                <p className="font-light text-gray-600 mt-3">{user.email}</p>
-                <p className="mt-3 text-gray-500">Joined: {new Date(user.date_joined).toLocaleDateString()}</p>
+              <hr className="my-4 bg-gray-100 h-0.5"/>
+              <div className="flex flex-wrap mt-4">
+              <div className="w-full">
+                <label className="block mb-3 text-sm font-medium text-gray-900 dark:text-white">Email: </label>
+                  <div className="relative">
+                    <div className="flex">
+                      <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                          <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
+                          <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
+                        </svg>
+                      </span>
+                      <p className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{user.email}</p>                    
+                    </div>
+                  </div>
               </div>
-            )}
+              </div>
+              <div className="flex flex-wrap mt-5">
+              <div className="w-full">
+                <label className="block mb-3 text-sm font-medium text-gray-900 dark:text-white">Username: </label>
+                  <div className="flex">
+                    <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                      <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>
+                      </svg>
+                    </span>
+                    <p className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{user.username}</p>                   
+                  </div>
+              </div>
+              </div>
+              <div className="flex flex-wrap mt-5">
+              <div className="w-full">
+                <label className="block mb-3 text-sm font-medium text-gray-900 dark:text-white">Joined: </label>
+                  <div className="flex">
+                    <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                      <svg className="w-4 h-4 text-gray-500 dark:text-gray-400 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3,22H21a1,1,0,0,0,1-1V6a1,1,0,0,0-1-1H17V3a1,1,0,0,0-2,0V5H9V3A1,1,0,0,0,7,3V5H3A1,1,0,0,0,2,6V21A1,1,0,0,0,3,22ZM4,7H20v3H4Zm0,5H20v8H4Z"/>
+                      </svg>
+                    </span>
+                    <p className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{new Date(user.date_joined).toLocaleDateString()}</p>                   
+                  </div>
+              </div>
+              </div>
+              <div className="mt-8 mb-10 text-center">
+                <Link to='/editing'>
+                  <button className="text-white py-2 px-24 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5" type="button">Edit</button>
+                </Link>  
+              </div>
+              <hr className="my-4 bg-gray-100 h-0.5"/>
+            </div>
           </div>
-          <div className="mt-3 flex flex-col justify-center">
-            {isEditing ? (
-              <button onClick={handleSave} className="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-                Save
-              </button>
-            ) : (
-              <button onClick={handleEdit} className="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-                Edit
-              </button>
-            )}
+          
+          <div className="w-full md:w-1/4">
+            <div className="p-3">
+              <div className="flex justify-between items-center mb-3 px-5">
+                <Link to="">
+                  <button className="inline-flex items-center px-4 py-2 text-sm text-gray-900 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200">
+                    <svg className="w-5 h-5" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                      <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+                      <g id="about-white" fill="#000000" transform="translate(42.666667, 42.666667)">
+                      <path d="M213.333333,3.55271368e-14 C95.51296,3.55271368e-14 3.55271368e-14,95.51168 3.55271368e-14,213.333333 C3.55271368e-14,331.153707 95.51296,426.666667 213.333333,426.666667 C331.154987,426.666667 426.666667,331.153707 426.666667,213.333333 C426.666667,95.51168 331.154987,3.55271368e-14 213.333333,3.55271368e-14 Z M213.333333,384 C119.227947,384 42.6666667,307.43872 42.6666667,213.333333 C42.6666667,119.227947 119.227947,42.6666667 213.333333,42.6666667 C307.44,42.6666667 384,119.227947 384,213.333333 C384,307.43872 307.44,384 213.333333,384 Z M240.04672,128 C240.04672,143.46752 228.785067,154.666667 213.55008,154.666667 C197.698773,154.666667 186.713387,143.46752 186.713387,127.704107 C186.713387,112.5536 197.99616,101.333333 213.55008,101.333333 C228.785067,101.333333 240.04672,112.5536 240.04672,128 Z M192.04672,192 L234.713387,192 L234.713387,320 L192.04672,320 L192.04672,192 Z" id="Shape">
+                      </path>
+                      </g>
+                      </g>
+                    </svg>
+                    <span className="px-3">About Us</span>
+                  </button>
+                </Link>
+              </div>
+              <div className="flex justify-between items-center py-3 px-5">
+                <Link to='/settings'>
+                  <button className="inline-flex items-center px-4 py-2 text-sm text-gray-900 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path fillRule="evenodd" clipRule="evenodd" d="M12.4277 2C11.3139 2 10.2995 2.6007 8.27081 3.80211L7.58466 4.20846C5.55594 5.40987 4.54158 6.01057 3.98466 7C3.42773 7.98943 3.42773 9.19084 3.42773 11.5937V12.4063C3.42773 14.8092 3.42773 16.0106 3.98466 17C4.54158 17.9894 5.55594 18.5901 7.58466 19.7915L8.27081 20.1979C10.2995 21.3993 11.3139 22 12.4277 22C13.5416 22 14.5559 21.3993 16.5847 20.1979L17.2708 19.7915C19.2995 18.5901 20.3139 17.9894 20.8708 17C21.4277 16.0106 21.4277 14.8092 21.4277 12.4063V11.5937C21.4277 9.19084 21.4277 7.98943 20.8708 7C20.3139 6.01057 19.2995 5.40987 17.2708 4.20846L16.5847 3.80211C14.5559 2.6007 13.5416 2 12.4277 2ZM8.67773 12C8.67773 9.92893 10.3567 8.25 12.4277 8.25C14.4988 8.25 16.1777 9.92893 16.1777 12C16.1777 14.0711 14.4988 15.75 12.4277 15.75C10.3567 15.75 8.67773 14.0711 8.67773 12Z" fill="#1C274C"/>
+                    </svg>
+                    <span className="px-3">Settings</span>
+                  </button>
+                </Link>
+              </div>
+              <div className="flex justify-between items-center py-3 px-5">
+                <button className="inline-flex items-center px-4 py-2 text-sm text-gray-900 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200">
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 16.5V19C15 20.1046 14.1046 21 13 21H6C4.89543 21 4 20.1046 4 19V5C4 3.89543 4.89543 3 6 3H13C14.1046 3 15 3.89543 15 5V8.0625M11 12H21M21 12L18.5 9.5M21 12L18.5 14.5" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <span className="px-3">Logout</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

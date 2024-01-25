@@ -17,10 +17,10 @@ const RootLayout = () => {
   }, [isAuthenticated, navigate]);
 
   return (
-    <div className='w-full'>
+    <div className='w-full flex flex-col justify-between'>
       <TopBar />
 
-      <section className='flex justify-center items-center py-6'>
+      <section className='flex-grow flex justify-center items-center py-6 '>
         <Outlet />
       </section>
 
