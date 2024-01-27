@@ -5,7 +5,7 @@ const BottomBar = () => {
   const { pathname } = useLocation();
 
   return (
-    <nav className='fixed bottom-0 py-1 left-0 w-full bg-white shadow'>
+    <nav className='fixed bottom-0 left-0 w-full bg-white shadow'>
       <ul className="flex justify-around py-2">
         {bottombarlinks.map((link) => {
           const isActive = pathname === link.route;

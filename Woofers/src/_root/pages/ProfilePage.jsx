@@ -9,7 +9,7 @@ const ProfilePage = () => {
     return (
       <div className="container mx-auto my-1 mb-12">
         <div className="flex flex-wrap">
-          <div className="w-full md:w-1/5 border-r">
+          <div className="w-full md:w-1/4 border-r">
             <div className="flex flex-col items-center text-center p-3 py-5">
               <img className="rounded-full mt-5 w-36" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"/>
               <span className="font-semibold">{user.username}</span>
@@ -71,8 +71,7 @@ const ProfilePage = () => {
               </div>
               <hr className="my-4 bg-gray-100 h-0.5"/>
             </div>
-          </div>
-          
+          </div>        
           <div className="w-full md:w-1/4">
             <div className="p-3">
               <div className="flex justify-between items-center mb-3 px-5">
