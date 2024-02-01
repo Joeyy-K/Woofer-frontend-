@@ -6,7 +6,7 @@ const EditingPage = () => {
 
     if (user) {
     return (
-        <div className="container mx-auto my-1 mb-2">
+        <div className="bg-gray-100 container mx-auto my-1 mb-24">
             <div className="flex flex-wrap">
                 <div className="w-full md:w-1/4 border-r">
                     <div className="flex flex-col items-center text-center p-3 py-5">
@@ -16,7 +16,7 @@ const EditingPage = () => {
                     </div>
                 </div>
                 <div className="w-full md:w-1/2 border-r">
-                    <div className="p-4 py-0">
+                    <div className="p-4 py-0 mt-5">
                         <div className="flex justify-between items-center mb-3">
                             <h4 className="text-right font-bold">User Profile</h4>
                         </div>

@@ -1,14 +1,13 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SearchBar from "../UI/Searchbar";
+import ProfilePic from "../ui/ProfilePic";
 
 const TopBar = () => {
-
-  const navigate = useNavigate();
-
   return (
-    <section className="topbar">
-      <div className="flex-between py-4">
-       <SearchBar />
+    <section>
+      <div className="flex justify-center space-x-2 px-4">
+        <SearchBar />
+        <ProfilePic />
       </div>
     </section>
   )
