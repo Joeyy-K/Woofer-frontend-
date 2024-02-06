@@ -8,6 +8,7 @@ const VetPage = () => {
   const [vet, setVetDetails] = useState(null);
   const [reviewText, setReviewText] = useState('');
   const { user } = useContext(UserContext);
+  const [reviews, setReviews] = useState([]);
 
   const handleInputChange = (event) => {
     setReviewText(event.target.value);
@@ -19,11 +20,11 @@ const VetPage = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('userToken')}`,  
+          'Authorization': `Token ${localStorage.getItem('userToken')}`, 
         },
         body: JSON.stringify({
-          user: user.id,  // Use the ID of the current user
-          veterinary: vet.id,  // Replace with the actual ID of the veterinary
+          user: user.id,  
+          veterinary: vet.id,  
           review: reviewText,
         }),
       });
@@ -34,6 +35,7 @@ const VetPage = () => {
   
       const data = await response.json();
       console.log('Review posted:', data);
+      setReviews(prevReviews => [...prevReviews, data]);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -46,6 +48,7 @@ const VetPage = () => {
         if (response.ok) {
           const data = await response.json();
           setVetDetails(data);
+          setReviews(data.reviews);  
           console.log(data)
         } else {
           console.error('Failed to fetch vet details');
@@ -127,25 +130,25 @@ const VetPage = () => {
                     <label className="block text-x font-bold text-gray-900 dark:text-white">Reviews</label>
                     <hr className="my-4 bg-gray-100 h-0.5"/> 
                     <div className="col-lg-8">
-                    {vet.reviews.length > 0 ? (
-                      [...vet.reviews].reverse().slice(0, 3).map((review, index) => (
-                      <div className="mb-3" key={index}>
-                        <div className="flex flex-wrap items-center">
-                          <img
-                            src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                            className="rounded-full mb-1"
-                            alt="woman avatar"
-                            width="30"
-                          />
-                          <h5 className="font-medium text-sm ml-2">{review.user.username}</h5>
-                        </div>
-                        <p className="text-sm mb-2">{new Date(review.created_at).toLocaleDateString()}</p>
-                        <p className="text-sm mb-4">{review.review}</p> 
-                      </div>
-                      ))
+                      {reviews.length > 0 ? (
+                        [...reviews].reverse().slice(0, 3).map((review, index) => (
+                          <div className="mb-3" key={index}>
+                            <div className="flex flex-wrap items-center">
+                              <img
+                                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                                className="rounded-full mb-1"
+                                alt="woman avatar"
+                                width="30"
+                              />
+                              <h5 className="font-medium text-sm ml-2">{review.user.username}</h5>
+                            </div>
+                            <p className="text-sm mb-2">{new Date(review.created_at).toLocaleDateString()}</p>
+                            <p className="text-sm mb-4">{review.review}</p> 
+                          </div>
+                        ))
                       ) : (
-                      <p className="text-sm mb-4 text-gray-500">Be the first to leave a review!</p>
-                    )}
+                        <p className="text-sm mb-4 text-gray-500">Be the first to leave a review!</p>
+                      )}
                     </div>
                     <hr className="my-4 bg-gray-100 h-0.5"/> 
                   </div>

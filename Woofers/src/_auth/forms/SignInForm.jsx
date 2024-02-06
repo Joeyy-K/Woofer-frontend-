@@ -82,6 +82,7 @@ const SignInForm = () => {
           console.log(data.user);
           setIsAuthenticated(true);
           Cookies.set('isAuthenticated', 'true');
+          Cookies.set('user', JSON.stringify(data.user)); // Set the user cookie
           navigate('/')
         });
       } else if (response.status === 400) {

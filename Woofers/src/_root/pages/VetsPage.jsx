@@ -34,7 +34,11 @@ const VetsPage = () => {
     setGenderFilter(event.target.value);
   }
 
-  const filteredVets = vets.filter(vet => (genderFilter === '' || vet.gender === genderFilter) && vet.first_name.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredVets = vets.filter(vet => 
+    (genderFilter === '' || vet.gender === genderFilter) && 
+    (vet.first_name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    vet.last_name.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
   const indexOfLastVet = currentPage * vetsPerPage;
   const indexOfFirstVet = indexOfLastVet - vetsPerPage;
   const currentVets = filteredVets.slice(indexOfFirstVet, indexOfLastVet);
