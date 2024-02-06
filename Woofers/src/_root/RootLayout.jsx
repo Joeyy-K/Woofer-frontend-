@@ -7,14 +7,19 @@ import { AuthContext } from '../contexts/AuthContext'; // import the AuthContext
 
 
 const RootLayout = () => {
-  const { isAuthenticated } = useContext(AuthContext); // consume the AuthContext
+  const { isAuthenticated, isLoading } = useContext(AuthContext); // consume the AuthContext
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/signin');
+      navigate('/'); // replace '/home' with the path you want to redirect authenticated users to
     }
   }, [isAuthenticated, navigate]);
+
+
+  if (isLoading) {
+    return <div>Loading...</div>; // or your custom loading component
+  }
 
   return (
     <div className='w-full flex flex-col justify-between'>

@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
+import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom'
 
 const SettingsPage = () => {
+  const { setIsAuthenticated } = useContext(AuthContext);
+
+  const handleLogout = async () => {
+    const response = await fetch('http://127.0.0.1:4000/user/logout/', { method: 'POST' }); // replace '/logout' with your logout endpoint
+
+    if (response.ok) {
+      setIsAuthenticated(false);
+      Cookies.remove('isAuthenticated');
+    } else {
+      console.error('Logout failed');
+    }
+  };
+
   return (
     <div className="bg-gray-100 container mx-auto mb-24">
       <div>
@@ -37,7 +52,7 @@ const SettingsPage = () => {
           <span className="px-3">Contact Us</span>   
           </Link>
         </div>
-        <button className="w-full px-4 py-4 text-sm mt-10 text-gray-900 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200">         
+        <button onClick={handleLogout} className="w-full px-4 py-4 text-sm mt-10 text-gray-900 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200">         
           <p className="text-red-500/100 underline font-semibold text-center px-3">Logout</p>   
         </button>
       </div> 

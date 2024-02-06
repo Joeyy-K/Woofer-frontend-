@@ -20,12 +20,12 @@ export default function App() {
           {/* public routes */}
           <Route element={<AuthLayout />}>
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/signin" element={<SignInForm />} />
+            <Route index element={<SignInForm />} />
           </Route>
 
           {/* private routes */}
           <Route element={<RootLayout />}>
-            <Route index element={<HomePage />} />
+            <Route path="/home" element={<HomePage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/veterinaries" element={<VetsPage />} />
             <Route path="/veterinary/:id" element={<VetPage />} />
