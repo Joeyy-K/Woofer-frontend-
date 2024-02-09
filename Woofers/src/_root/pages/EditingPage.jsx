@@ -1,8 +1,50 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import Cookies from 'js-cookie';
 import { UserContext } from '../../contexts/UserContext';
 
 const EditingPage = () => {
     const { user, setUser } = useContext(UserContext);
+    const [email, setEmail] = useState(user.email);
+    const [username, setUsername] = useState(user.username);
+
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
+    };
+
+    const handleUsernameChange = (event) => {
+        setUsername(event.target.value);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const token = Cookies.get('user');
+
+        const body = {
+            email: email,
+            username: username
+        };
+
+        fetch('http://127.0.0.1:4000/user/update/', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('userToken')}`
+            },
+            body: JSON.stringify(body)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.detail) {
+                console.error(data.detail);
+            } else {
+                setUser(data);
+                Cookies.set('user', JSON.stringify(data));
+            }
+        })
+        .catch(error => console.error(error));
+    };
+
 
     if (user) {
     return (
@@ -32,7 +74,7 @@ const EditingPage = () => {
                                             <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
                                         </svg>
                                     </span>
-                                    <input type="text" className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={`${user.email}`}/>
+                                    <input onChange={handleEmailChange} type="text" className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={`${user.email}`}/>
                                     </div>
                                 </div>
                             </div>
@@ -46,12 +88,12 @@ const EditingPage = () => {
                                             <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>
                                         </svg>
                                     </span>
-                                    <input type="text" className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={`${user.username}`}/>
+                                    <input onChange={handleUsernameChange} type="text" className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={`${user.username}`}/>
                                 </div>
                             </div>
                         </div>
                         <div className="mt-8 mb-10 text-center">
-                            <button className="text-white py-2 px-24 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5" type="button">Save Profile</button>
+                            <button onClick={handleSubmit} className="text-white py-2 px-24 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5" type="button">Save Profile</button>
                         </div>
                         <hr className="my-4 bg-gray-100 h-0.5"/>
                     </div>

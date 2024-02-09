@@ -62,7 +62,7 @@ const SignInForm = () => {
         email: email,
         password: password
       }),
-      credentials: 'include', // Include cookies in the request
+      credentials: 'include',
       })
       .then((response) => {
         setTimeout(() => resolve(response), 2000); 
@@ -82,7 +82,7 @@ const SignInForm = () => {
           console.log(data.user);
           setIsAuthenticated(true);
           Cookies.set('isAuthenticated', 'true');
-          Cookies.set('user', JSON.stringify(data.user)); // Set the user cookie
+          Cookies.set('user', JSON.stringify(data.user));
           navigate('/')
         });
       } else if (response.status === 400) {

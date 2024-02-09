@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { fetchVeterinaries } from '../../components/api/api';
 
 const VetsPage = () => {
   const [vets, setVets] = useState([]);
@@ -10,19 +11,12 @@ const VetsPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:4000/veterinaries/');
-        if (response.ok) {
-          const data = await response.json();
-          setVets(data);
-        } else {
-          console.error('Failed to fetch data');
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
+      const data = await fetchVeterinaries();
+      if (data) {
+        setVets(data);
       }
     };
-
+  
     fetchData();
   }, []);
 

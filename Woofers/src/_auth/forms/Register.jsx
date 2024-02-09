@@ -75,7 +75,7 @@ const RegisterPage = () => {
             email: email,
             password: password
           }),
-          credentials: 'include', // Include cookies in the request
+          credentials: 'include',
           })
         .then((response) => {
           setTimeout(() => resolve(response), 2000); 
@@ -96,6 +96,7 @@ const RegisterPage = () => {
             setUser(data.user);
             console.log(data.user);
             Cookies.set('isAuthenticated', 'true');
+            Cookies.set('user', JSON.stringify(data.user));
             navigate('/')
           });
         } else if (response.status === 400) {
@@ -222,7 +223,7 @@ const RegisterPage = () => {
       >
         Register
       </button>
-      <p className="p-4 text-center font-extrabold">Already have an account? <Link to="/signin" className="text-red-500 hover:underline">Sign in here</Link></p>
+      <p className="p-4 text-center font-extrabold">Already have an account? <Link to="/" className="text-red-500 hover:underline">Sign in here</Link></p>
     </div>
   );
 };

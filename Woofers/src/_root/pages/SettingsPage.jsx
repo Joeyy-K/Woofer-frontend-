@@ -2,22 +2,23 @@ import React, { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { AuthContext } from '../../contexts/AuthContext';
 import Cookies from 'js-cookie';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { logoutUser } from '../../components/api/api';
 
 const SettingsPage = () => {
   const { setIsAuthenticated } = useContext(AuthContext);
   const { setUser } = useContext(UserContext);
 
   const handleLogout = async () => {
-    const response = await fetch('http://127.0.0.1:4000/user/logout/', { method: 'POST' }); // replace '/logout' with your logout endpoint
-
-    if (response.ok) {
+    const success = await logoutUser();
+    if (success) {
       setIsAuthenticated(false);
       Cookies.remove('isAuthenticated');
       Cookies.remove("user");
+      Cookies.remove("userToken"); 
+      Cookies.remove("token"); 
+      Cookies.remove('csrftoken', { path: '/', domain: '127.0.0.1', secure: true, sameSite: 'lax' });
       setUser(null);
-    } else {
-      console.error('Logout failed');
     }
   };
 

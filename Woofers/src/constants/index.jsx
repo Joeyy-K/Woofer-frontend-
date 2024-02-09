@@ -1,7 +1,7 @@
 export const bottombarlinks = [
     {
         imgURL: '/icons/homeicon.svg',
-        route: '/',
+        route: '/home',
         label: 'Home',
     },
     {
