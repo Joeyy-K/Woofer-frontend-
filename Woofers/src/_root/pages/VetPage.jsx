@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import { Link } from 'react-router-dom';
+import { VetContext } from '../../contexts/VetContext';
 
 const VetPage = () => {
   const { id } = useParams();
@@ -9,9 +10,14 @@ const VetPage = () => {
   const [reviewText, setReviewText] = useState('');
   const { user } = useContext(UserContext);
   const [reviews, setReviews] = useState([]);
+  const { setVetId } = useContext(VetContext); 
 
   const handleInputChange = (event) => {
     setReviewText(event.target.value);
+  };
+
+  const handleBookAppointmentClick = (vetId) => {
+    setVetId(vetId);
   };
 
   const handleSendClick = async () => {
@@ -78,14 +84,31 @@ const VetPage = () => {
           <div className="flex flex-col items-center text-center p-3">
             <img className="rounded-full mt-2 w-36" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"/>
             <span className="font-bold">{vet.first_name} {vet.last_name}</span>
-            <span className="text-gray-500 mt-1">{vet.email}</span>
-            <span className="font-bold mt-8">Joined At:</span>
+            <div className="w-full">
+              <hr className="my-4 bg-gray-100 h-0.5"/>
+            </div>
+            <span className="font-bold">Joined At:</span>
             <span className="py-1">{new Date(vet.created_at).toLocaleDateString()}</span>
+            <div className="flex flex-wrap">
+              <div className="w-full">
+                <hr className="my-4 bg-gray-100 h-0.5"/>
+                <label className="block mb-2 text-x font-bold text-gray-900 dark:text-white">Contacts:</label>
+                <div className="w-full">
+                  <label className="block mb-3 text-sm font-medium text-gray-900 dark:text-white">Email: </label>
+                </div>
+                <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{vet.email}</p>  
+                <hr className="my-4 bg-gray-100 h-0.5"/> 
+                <div className="w-full">
+                  <label className="block mb-3 font-semibold text-gray-900 dark:text-white">Location:</label>
+                </div>
+                <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{vet.location}</p>
+                <hr className="my-4 bg-gray-100 h-0.5"/> 
+              </div> 
+            </div>
           </div>
-          <hr className="my-4 bg-gray-100 h-0.5"/> 
         </div>
         <div className="w-full md:w-1/2 border-r">
-          <div className="p-3 py-0 mb-4 mt-5">
+          <div className="p-3 py-0 mb-4 mt-4">
             <div className="flex justify-between items-center mb-3">
               <h4 className="text-right font-bold">Your Veterinarian</h4>
             </div>
@@ -95,28 +118,16 @@ const VetPage = () => {
               <label className="block mb-3 text-x font-bold text-gray-900 dark:text-white">Bio</label>
               <textarea className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-40" placeholder="Review"></textarea>
             </div>
-          </div>
-          <div className="flex flex-wrap mt-3">
-            <div className="w-full md:w-1/2">
-              <label className="block mb-2 text-x font-bold text-gray-900 dark:text-white">Contacts:</label>
-              <div className="w-full">
-                <hr className="my-4 bg-gray-100 h-0.5"/>
-                <label className="block mb-3 text-sm font-medium text-gray-900 dark:text-white">Email: </label>
-              </div>
-              <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{vet.email}</p>
-            </div>
-          </div>
-          <hr className="my-4 bg-gray-100 h-0.5"/> 
-          <div className="flex justify-between items-center experience mb-1">
-            <label className="block mb-3 font-semibold text-gray-900 dark:text-white">Located at:</label>
-          </div>
-          <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{vet.location}</p>
-          <hr className="my-4 bg-gray-100 h-0.5"/> 
-          <div className="flex justify-between items-center experience mb-4">
-            <span className="block text-m font-medium text-gray-900 dark:text-white">Book {vet.first_name} through:</span>
-          </div>
-          <div className="flex items-center">
-            <button className="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5" type="button">Email</button>
+          </div>  
+          <div>
+            <Link to={'/booking/'}>
+              <button
+                onClick={() => handleBookAppointmentClick(vet.id)}
+                className={"bg-blue-500 hover:bg-blue-800 text-white mt-4  w-full py-2 rounded-md"}
+              >
+                Book Your Appointment
+              </button>
+            </Link>
           </div>
           <hr className="my-4 bg-gray-100 h-0.5"/>  
           </div>

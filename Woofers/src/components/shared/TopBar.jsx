@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import SearchBar from "../UI/Searchbar";
+import SearchBar from "../ui/Searchbar";
 import ProfilePic from "../ui/ProfilePic";
 
 const TopBar = () => {

@@ -10,9 +10,9 @@ export const bottombarlinks = [
         label: 'Veterinaries',
     },
     {
-        imgURL: '/icons/account.svg',
-        route: '/profile',
-        label: 'Profile',
+        imgURL: '/icons/appointment.svg',
+        route: '/appointment',
+        label: 'Appointment',
     },
     {
         imgURL: '/icons/settings.svg',
