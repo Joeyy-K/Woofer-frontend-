@@ -4,7 +4,11 @@ import { fetchVeterinaries } from '../../components/api/api';
 
 const HomePage = () => {
   const [vets, setVets] = useState([]);
+  const [countries, setCountries] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [cityFilter, setCityFilter] = useState('');
   const [start, setStart] = useState(0);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -12,9 +16,25 @@ const HomePage = () => {
       if (data) {
         setVets(data);
       }
+
+      const countryResponse = await fetch('http://127.0.0.1:4000/countries/');
+      const countryData = await countryResponse.json();
+      setCountries(countryData);
     };
   
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      const response = await fetch('http://127.0.0.1:4000/cities/');
+      const data = await response.json();
+      if (data) {
+        setCities(data);
+      }
+    };
+  
+    fetchCities();
   }, []);
 
   const handlePrev = () => {
@@ -25,14 +45,91 @@ const HomePage = () => {
     setStart(Math.min(vets.length - 6, start + 6)); 
   };
 
+  const handleCityFilterChange = (event) => {
+    setCityFilter(event.target.value);
+  }
+
+  const filteredVets = vets.filter(vet => 
+    (cityFilter === '' || vet.city.name === cityFilter)
+  );
+
   return (
     <div className="bg-gray-100 container mx-auto mb-24">
-      <div className="flex flex-col items-center mt-0 mx-4">
-      <div className="mt-3 relative text-center w-full py-4 rounded bg-blue-500">
-        <p className="text-2xl font-semibold text-white">helping you connect with your best local veterinaries</p>
-        <button className="mt-4 text-blue-500 py-1 px-3 uppercase rounded bg-gray-100 hover:bg-gray-200 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5" type="button">About Us!</button>
+      <section className="py-8 md:py-8">
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 relative">
+            <div className="shadow rounded-xl">
+                <div className="grid overflow-hidden text-white shadow-xl md:grid-cols-2 bg-indigo-600 rounded-xl">
+                    <aside className="p-8 space-y-4 md:p-16">
+                        <h2 className="text-2xl font-bold tracking-tight md:text-4xl font-headline">
+                            Home for you Local
+                            Trusted Veterinarians
+                        </h2>
+                        <p className="font-medium text-blue-100 md:text-2xl">
+                          Find out more about us
+                        </p>
+                        <div>
+                          <button className="bg-white text-indigo-600 px-4 py-2 mt-3 rounded-xl">
+                            About Us
+                          </button>
+                        </div>
+                    </aside>
+                    <aside className="p-16 space-y-4 hidden md:block">
+                    <blockquote className="font-medium text-blue-100 md:text-2xl">
+                      "The greatness of a nation and its moral progress can be judged by the way its animals are treated." - Mahatma Gandhi
+                    </blockquote>
+                  </aside>
+                </div>
+            </div>
+        </div>
+      </section>
+      <div className="flex justify-center space-x-12 mb-2">
+        <div className="relative inline-block text-left">
+          <div className="group">
+            <button type="button"
+              className="inline-flex rounded justify-center items-center w-full px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
+              Country
+              <svg className="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 12l-5-5h10l-5 5z" />
+              </svg>
+            </button>
+          <div
+            className="absolute left-0 w-40 mt-0 origin-top-left bg-white divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
+            <div className="py-1">
+              {countries.map((country) => (
+                <a key={country.id} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{country.name}</a>
+              ))}
+            </div>
+          </div>
+        </div>
+        </div>
+      <div className="relative inline-block text-left">
+        <div className="group">
+          <button type="button"
+            className="inline-flex rounded justify-center items-center w-full px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-400">
+            City
+            <svg className="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M10 12l-5-5h10l-5 5z" />
+            </svg>
+          </button>
+          <div
+            className="absolute left-0 w-40 mt-0 origin-top-left bg-white divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
+            <div className="py-1" style={{ maxHeight: '150px', overflowY: 'auto' }}>
+              {cities.map((city) => (
+                <button 
+                  key={city.id} 
+                  onClick={() => handleCityFilterChange({target: {value: city.name}})}
+                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  {city.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-        <div className="mt-3 flex items-center w-full py-4 rounded bg-blue-500">
+      </div>
+      <div className="flex flex-col items-center mt-0 mx-4">    
+        <div className="mt-3 flex items-center w-full py-4 rounded bg-indigo-600">
           <p className="px-5 text-2xl font-medium text-white ">
             Select from the Best
           </p>
@@ -75,17 +172,17 @@ const HomePage = () => {
               <path d="M13 8L9 12M9 12L13 16M9 12H21M19.4845 7C17.8699 4.58803 15.1204 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C15.1204 21 17.8699 19.412 19.4845 17" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>  
-          {vets.slice(start, start + 6).map((vet, index) => (
-          <div key={index} className="mb-1 shadow-lg border-0 flex-shrink-0">
-          <Link to={`/veterinary/${vet.id}`}>
-            <div className="flex flex-col items-center text-center px-4">
-              <img className="rounded-full mt-2 w-16" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"/>
+          {filteredVets.slice(start, start + 6).map((vet, index) => (
+            <div key={index} className="mb-1 shadow-lg border-0 flex-shrink-0">
+              <Link to={`/veterinary/${vet.id}`}>
+                <div className="flex flex-col items-center text-center px-4">
+                  <img className="rounded-full mt-2 w-16" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"/>
+                </div>
+                <div className="p-2">
+                  <small className="text-black text-base"> {`${vet.first_name}`}</small>          
+                </div>  
+              </Link>
             </div>
-            <div className="p-2">
-              <small className="text-black text-sm"> {`${vet.first_name}`}</small>          
-            </div>  
-          </Link>
-          </div>
           ))}
           <button className="px-4" onClick={handleNext}>
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -95,7 +192,7 @@ const HomePage = () => {
         </div>
         <div className="flex mt-3 items-center">
           <Link to={`/veterinaries`}>
-            <button className="text-white py-1 px-3 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5" type="button">See All</button>
+            <button className="text-white px-4 py-2 mt-2 rounded-xl bg-gray-800 hover:bg-gray-600 shadow hover:shadow-lg transition transform hover:-translate-y-0.5" type="button">See All</button>
           </Link>
         </div>
       </div>

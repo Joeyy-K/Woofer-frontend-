@@ -3,7 +3,7 @@ import SignInForm from "./_auth/forms/SignInForm";
 import AuthLayout from "./_auth/AuthLayout";
 import { Routes, Route } from "react-router-dom";
 import { useLocation, useNavigate } from 'react-router-dom';
-import { HomePage, ProfilePage, VetsPage, SettingsPage, VetPage, EditingPage, BookingPage, AppointmentPage } from "./_root/pages";
+import { HomePage, ProfilePage, VetsPage, SettingsPage, VetPage, EditingPage, BookingPage, AppointmentPage, ContactUsPage } from "./_root/pages";
 import RootLayout from "./_root/RootLayout";
 import { UserProvider } from "./contexts/UserContext";
 import { VetProvider } from "./contexts/VetContext";
@@ -50,6 +50,7 @@ export default function App() {
             <Route path="/editing" element={<EditingPage />} />
             <Route path="/booking" element={<VetProvider><BookingPage /></VetProvider>} />
             <Route path="/appointment" element={<AppointmentPage />} />
+            <Route path="/contact" element={<ContactUsPage />} />
           </Route>
         </Routes>     
       </main>

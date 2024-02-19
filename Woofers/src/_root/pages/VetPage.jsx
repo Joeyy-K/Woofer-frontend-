@@ -70,8 +70,8 @@ const VetPage = () => {
   if (!vet) {
     return (
       <div className="flex items-center justify-center space-x-2 animate-bounce">
-        <div className="w-8 h-8 bg-blue-400 rounded-full"></div>
-        <div className="w-8 h-8 bg-green-400 rounded-full"></div>
+        <div className="w-8 h-8 bg-indigo-600 rounded-full"></div>
+        <div className="w-8 h-8 bg-gray-400 rounded-full"></div>
         <div className="w-8 h-8 bg-black rounded-full"></div>
       </div>
     )
@@ -96,12 +96,12 @@ const VetPage = () => {
                 <div className="w-full">
                   <label className="block mb-3 text-sm font-medium text-gray-900 dark:text-white">Email: </label>
                 </div>
-                <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{vet.email}</p>  
+                <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-indigo-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">{vet.email}</p>  
                 <hr className="my-4 bg-gray-100 h-0.5"/> 
                 <div className="w-full">
                   <label className="block mb-3 font-semibold text-gray-900 dark:text-white">Location:</label>
                 </div>
-                <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{vet.location}</p>
+                <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">{vet.location}</p>
                 <hr className="my-4 bg-gray-100 h-0.5"/> 
               </div> 
             </div>
@@ -123,7 +123,7 @@ const VetPage = () => {
             <Link to={'/booking/'}>
               <button
                 onClick={() => handleBookAppointmentClick(vet.id)}
-                className={"bg-blue-500 hover:bg-blue-800 text-white mt-4  w-full py-2 rounded-md"}
+                className={"bg-blue-500 hover:bg-indigo-800 text-white mt-4  w-full py-2 rounded-md"}
               >
                 Book Your Appointment
               </button>
@@ -168,9 +168,9 @@ const VetPage = () => {
             </div>
             <div className="w-full">
               <label className="block font-semibold mb-3 text-gray-900 dark:text-white">Experience:</label>
-              <textarea className="bg-gray-50 border mb-4 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-32" placeholder="Review" value={reviewText}onChange={handleInputChange}></textarea>
+              <textarea className="bg-gray-50 border mb-4 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 h-32" placeholder="Review" value={reviewText}onChange={handleInputChange}></textarea>
             </div>
-            <button className="text-white py-1 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5" type="button" onClick={handleSendClick}>Send</button>
+            <button className="text-white py-1 px-4 uppercase rounded bg-indigo-600 hover:bg-indigo-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5" type="button" onClick={handleSendClick}>Send</button>
           </div>
         </div>
       </div>

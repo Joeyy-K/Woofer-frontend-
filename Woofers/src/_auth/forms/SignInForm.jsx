@@ -134,8 +134,10 @@ const SignInForm = () => {
         </svg>
         <span className="text-red-800">{error}</span>
       </div>}
+      <form>
       <label className="block mb-2 font-extrabold">Email</label>
       <input
+        autoComplete="email"
         type="email"
         placeholder="Email"
         value={email}
@@ -145,6 +147,7 @@ const SignInForm = () => {
       <label className="block mb-2 font-extrabold">Password</label>
       <div className="relative">
         <input
+         autoComplete="current-password"
           type={showPassword ? "text" : "password"}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -168,6 +171,7 @@ const SignInForm = () => {
           )}
         </button>
       </div>
+      </form>
       <button
         onClick={handleLogin}
         className={"bg-blue-500 text-white mt-4  w-full py-2 rounded-md"}

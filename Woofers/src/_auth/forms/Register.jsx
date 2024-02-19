@@ -149,8 +149,10 @@ const RegisterPage = () => {
         </svg>
         <span className="text-red-800"> {error}</span>
       </div>}
+      <form>
       <label className="block mb-2 font-extrabold">Username</label>
       <input
+        autoComplete="username"
         type="text"
         placeholder="Username"
         value={username}
@@ -159,6 +161,7 @@ const RegisterPage = () => {
       />
       <label className="block mb-2 font-extrabold">Email</label>
       <input
+        autoComplete="email"
         type="email"
         placeholder="Email"
         value={email}
@@ -168,6 +171,7 @@ const RegisterPage = () => {
       <label className="block mb-2 font-extrabold">Password</label>
       <div className="relative">
         <input
+          autoComplete="new-password"
           type={showPassword ? "text" : "password"}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -194,6 +198,7 @@ const RegisterPage = () => {
       <label className="block mb-2 font-extrabold">Confirm Password</label>
       <div className="relative">
         <input
+          autoComplete="new-password"
           type={showPasswordConfirm ? "text" : "password"}
           value={passwordConfirm}
           onChange={(e) => setPasswordConfirm(e.target.value)}
@@ -217,6 +222,7 @@ const RegisterPage = () => {
           )}
         </button>
       </div>
+      </form>
       <button
         onClick={handleRegister}
         className={"bg-blue-500 text-white mt-4  w-full py-2 rounded-md"}

@@ -25,7 +25,7 @@ const SettingsPage = () => {
   return (
     <div className="bg-gray-100 container mx-auto mb-24">
       <div>
-        <div className="mt-3 items-center w-full py-4 rounded bg-blue-500">
+        <div className="mt-3 items-center w-full py-4 rounded bg-indigo-600">
           <p className="text-white font-bold px-3">General Settings</p>
         </div>
         <div className="w-full px-4 py-4 text-sm text-gray-900 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200">
