@@ -21,7 +21,7 @@ const ProfilePage = () => {
               <div className="flex justify-between items-center mb-3">
                 <h4 className="text-right font-bold">User Profile</h4>
               </div>
-              <hr className="my-4 bg-gray-100 h-0.5"/>
+              <hr className="my-4 bg-gray-300 h-1"/>
               <div className="flex flex-wrap mt-4">
               <div className="w-full">
                 <label className="block mb-3 text-sm font-medium text-gray-900 dark:text-white">Email: </label>
@@ -69,7 +69,7 @@ const ProfilePage = () => {
                   <button className="text-white py-2 px-24 uppercase rounded bg-indigo-600 hover:bg-indigo-400 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5" type="button">Edit</button>
                 </Link>  
               </div>
-              <hr className="my-4 bg-gray-100 h-0.5"/>
+              <hr className="my-4 bg-gray-300 h-1"/>
             </div>
           </div>        
           <div className="w-full md:w-1/4">

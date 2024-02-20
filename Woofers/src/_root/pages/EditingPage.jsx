@@ -1,15 +1,12 @@
 import React, { useContext, useState } from 'react';
 import Cookies from 'js-cookie';
 import { UserContext } from '../../contexts/UserContext';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditingPage = () => {
     const { user, setUser } = useContext(UserContext);
-    const [email, setEmail] = useState(user.email);
     const [username, setUsername] = useState(user.username);
-
-    const handleEmailChange = (event) => {
-        setEmail(event.target.value);
-    };
 
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -19,9 +16,9 @@ const EditingPage = () => {
         event.preventDefault();
 
         const token = Cookies.get('user');
+        let userToken = Cookies.get('userToken');
 
         const body = {
-            email: email,
             username: username
         };
 
@@ -29,26 +26,33 @@ const EditingPage = () => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Token ${localStorage.getItem('userToken')}`
+                'Authorization': `Token ${userToken}`
             },
             body: JSON.stringify(body)
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.detail) {
                 console.error(data.detail);
             } else {
                 setUser(data);
                 Cookies.set('user', JSON.stringify(data));
+                toast.success("Successfully Changed!");
             }
         })
         .catch(error => console.error(error));
+        toast.error("Username Already Taken!");
     };
-
 
     if (user) {
     return (
         <div className="bg-gray-100 container mx-auto my-1 mb-24">
+            <div className="items-center justify-center"><ToastContainer /></div>
             <div className="flex flex-wrap">
                 <div className="w-full md:w-1/4 border-r">
                     <div className="flex flex-col items-center text-center p-3 py-5">
@@ -62,23 +66,7 @@ const EditingPage = () => {
                         <div className="flex justify-between items-center mb-3">
                             <h4 className="text-right font-bold">User Profile</h4>
                         </div>
-                        <hr className="my-4 bg-gray-100 h-0.5"/>
-                        <div className="flex flex-wrap mt-5">
-                            <div className="w-full">
-                                <label className="block mb-3 text-sm font-medium text-gray-900 dark:text-white">Email: </label>
-                                <div className="relative mb-6">
-                                    <div className="flex">
-                                    <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
-                                            <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
-                                            <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
-                                        </svg>
-                                    </span>
-                                    <input onChange={handleEmailChange} type="text" className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={`${user.email}`}/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <hr className="my-4 bg-gray-300 h-1"/>
                         <div className="flex flex-wrap mt-5">
                             <div className="w-full">
                                 <label className="block mb-3 text-sm font-medium text-gray-900 dark:text-white">Username: </label>

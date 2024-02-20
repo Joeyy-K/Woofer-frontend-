@@ -10,17 +10,22 @@ const SettingsPage = () => {
   const { setUser } = useContext(UserContext);
 
   const handleLogout = async () => {
-    const success = await logoutUser();
-    if (success) {
-      setIsAuthenticated(false);
-      Cookies.remove('isAuthenticated');
-      Cookies.remove("user");
-      Cookies.remove("userToken"); 
-      Cookies.remove("token"); 
-      Cookies.remove('csrftoken', { path: '/', domain: '127.0.0.1', secure: true, sameSite: 'lax' });
-      setUser(null);
+    try {
+      const success = await logoutUser();
+      if (success) {
+        setIsAuthenticated(false);
+        Cookies.remove('isAuthenticated');
+        Cookies.remove("user");
+        Cookies.remove("userToken"); 
+        Cookies.remove("token"); 
+        Cookies.remove('csrftoken', { path: '/', domain: '127.0.0.1', secure: true, sameSite: 'lax' });
+        setUser(null);
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
     }
   };
+  
 
   return (
     <div className="bg-gray-100 container mx-auto mb-24">

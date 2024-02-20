@@ -1,5 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { VetContext } from '../../contexts/VetContext';
+import Cookies from 'js-cookie';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const BookingPage = () => {
     const [appointmentDate, setAppointmentDate] = useState('');
@@ -14,7 +17,7 @@ const BookingPage = () => {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Token ${localStorage.getItem('userToken')}`, 
+              'Authorization': `Token ${Cookies.get('userToken')}`,
             },
             body: JSON.stringify({
               veterinary: vetId,
@@ -31,15 +34,18 @@ const BookingPage = () => {
           setIsAppointmentBooked(true);  
       
           const data = await response.json();
+          toast.success("Appointment Created!");
           console.log('Appointment created:', data);
         } catch (error) {
           console.error('Error:', error);
+          toast.error("Failed to Create Appointment!");
         }
       };
 
 
   return (
     <div className="max-w-md mx-auto mt-10 mb-24 bg-white shadow-lg rounded-lg overflow-hidden">
+      <div className="items-center justify-center"><ToastContainer /></div>
     <div className="text-2xl py-4 px-6 bg-blue-500 text-white text-center font-bold uppercase">
         Book an Appointment
     </div>

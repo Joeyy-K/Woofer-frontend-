@@ -4,6 +4,8 @@ import { AuthContext } from '../../contexts/AuthContext'; // import the AuthCont
 import { UserContext } from '../../contexts/UserContext';
 import Cookies from 'js-cookie';
 import { getCookie } from '../../components/cookie/utils';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
@@ -33,16 +35,20 @@ const RegisterPage = () => {
     return emailRegex.test(email);
   };
 
-  const handleTogglePassword = () => {
+  const handleTogglePassword = (event) => {
+    event.preventDefault();
     setShowPassword(!showPassword);
   };
 
-  const handleTogglePasswordConfirm = () => {
-    setShowPasswordConfirm(!showPasswordConfirm);
+  const handleTogglePasswordConfirm = (event) => {
+      event.preventDefault();
+      setShowPasswordConfirm(!showPasswordConfirm);
   };
+
 
   const handleRegister = () => {
     if (!isFormValid) {
+      toast.error("Please fill in all fields!");
       setError('Please fill in all fields');
       return;
     }
@@ -92,15 +98,18 @@ const RegisterPage = () => {
             setEmail('');
             setPassword('');
             setError('');
+            toast.success("Successfully registered!");
             setIsAuthenticated(true);
             setUser(data.user);
             console.log(data.user);
             Cookies.set('isAuthenticated', 'true');
             Cookies.set('user', JSON.stringify(data.user));
+            Cookies.set('userToken', data.token);
             navigate('/')
           });
         } else if (response.status === 400) {
             return response.json().then((data) => {
+              toast.error("Please fill in all the fields!");
               setIsLoading(false);
               setError(data.error); 
         })
@@ -132,6 +141,7 @@ const RegisterPage = () => {
 
   return (
     <div className="max-w-md sm:w-420 flex-center flex-col mx-auto">
+      <div className="items-center justify-center"><ToastContainer /></div>
       <h1 className="text-2xl font-bold mb-5 sm:pt-12">Create a new account</h1>
       {isLoading && 
       <button type="button" className="py-2 px-4 flex justify-center items-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg max-w-md">

@@ -72,7 +72,7 @@ const VetsPage = () => {
             <div className="flex flex-col items-center">
               <div className="inline-flex mt-2 xs:mt-0">
                 {pageNumbers.map(number => (
-                <button className="flex items-center justify-center px-3 mx-0.5 h-8 text-sm font-medium text-white  bg-indigo-600 rounded-e border border-indigo-600 hover:bg-indigo-400 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-600 dark:focus:ring-indigo-400" key={number} onClick={() => paginate(number)}>
+                <button className="flex items-center justify-center px-3 mx-0.5 h-8 text-sm font-medium text-white  bg-indigo-600 rounded-lg border border-indigo-600 hover:bg-indigo-400 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-600 dark:focus:ring-indigo-400" key={number} onClick={() => paginate(number)}>
                 {number}
                 </button>
                 ))}
@@ -111,13 +111,13 @@ const VetsPage = () => {
                       <h5 className="font-medium mb-0">{`${vet.first_name}`}<small className="text-gray-700 text-sm"> {`${vet.last_name}`}</small></h5>          
                       <ul className="mt-5 text-sm">
                         <li className="text-gray-700 text-sm py-1">Location: </li>
-                        <li className="font-semibold">{vet.location}</li>
+                        <li className="font-semibold">{vet.city.name}, {vet.city.country.name}</li>
                         <li className="text-gray-700 text-sm py-1">Email: </li>
                         <li className="font-semibold">{vet.email}</li>
                       </ul>
                         <div className="flex mt-6 items-center">
                           <Link to={`/veterinary/${vet.id}`}>
-                            <button className="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5" type="button">Details</button>
+                            <button className="text-white py-2 px-4 rounded-lg bg-indigo-600 hover:bg-indigo-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5" type="button">Details</button>
                           </Link>
                         </div>
                     </div>
@@ -129,7 +129,7 @@ const VetsPage = () => {
             <div className="flex flex-col items-center">
               <div className="inline-flex mt-2 xs:mt-0">
                 {pageNumbers.map(number => (
-                <button className="flex items-center justify-center px-3 mx-0.5 h-8 text-sm font-medium text-white  bg-blue-700 rounded-e border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" key={number} onClick={() => paginate(number)}>
+                <button className="flex items-center justify-center px-3 mx-0.5 h-8 text-sm font-medium text-white  bg-indigo-600 rounded-e border border-indigo-600 hover:bg-indigo-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800" key={number} onClick={() => paginate(number)}>
                 {number}
                 </button>
                 ))}
