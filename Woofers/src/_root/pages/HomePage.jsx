@@ -61,16 +61,18 @@ const HomePage = () => {
                 <div className="grid overflow-hidden text-white shadow-xl md:grid-cols-2 bg-indigo-600 rounded-xl">
                     <aside className="p-8 space-y-4 md:p-16">
                         <h2 className="text-2xl font-bold tracking-tight md:text-4xl font-headline">
-                            Home for you Local
+                            Home for our Local
                             Trusted Veterinarians
                         </h2>
                         <p className="font-medium text-blue-100 md:text-2xl">
                           Find out more about us
                         </p>
                         <div>
-                          <button className="bg-white text-indigo-600 px-4 py-2 mt-3 rounded-xl">
-                            About Us
-                          </button>
+                          <Link to="/about">
+                            <button className="bg-white text-indigo-600 px-4 py-2 mt-3 rounded-xl">
+                              About Us
+                            </button>
+                          </Link>
                         </div>
                     </aside>
                     <aside className="p-16 space-y-4 hidden md:block">
@@ -176,7 +178,7 @@ const HomePage = () => {
             <div key={index} className="mb-1 shadow-lg border-0 flex-shrink-0">
               <Link to={`/veterinary/${vet.id}`}>
                 <div className="flex flex-col items-center text-center px-4">
-                  <img className="rounded-full mt-2 w-16" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"/>
+                  <img className="rounded-full mt-2 w-16" src={vet.profile_picture}/>
                 </div>
                 <div className="p-2">
                   <small className="text-black text-base"> {`${vet.first_name}`}</small>          

@@ -105,7 +105,7 @@ const VetsPage = () => {
               <div key={index} className="w-full md:w-1/3">
                 <div className="mb-2 shadow-lg border-0">
                   <div className="flex flex-col items-center text-center p-3 py-2">
-                    <img className="rounded-full mt-2 w-32" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"/>
+                    <img className="rounded-full mt-2 w-32" src={vet.profile_picture}/>
                   </div>
                     <div className="p-6">
                       <h5 className="font-medium mb-0">{`${vet.first_name}`}<small className="text-gray-700 text-sm"> {`${vet.last_name}`}</small></h5>          

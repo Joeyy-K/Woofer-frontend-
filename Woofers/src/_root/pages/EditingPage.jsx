@@ -15,8 +15,8 @@ const EditingPage = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const token = Cookies.get('user');
         let userToken = Cookies.get('userToken');
+        let csrftoken = Cookies.get('csrftoken');
 
         const body = {
             username: username
@@ -26,7 +26,8 @@ const EditingPage = () => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Token ${userToken}`
+                'Authorization': `Token ${userToken}`,
+                'X-CSRFToken': csrftoken
             },
             body: JSON.stringify(body)
         })
@@ -46,7 +47,6 @@ const EditingPage = () => {
             }
         })
         .catch(error => console.error(error));
-        toast.error("Username Already Taken!");
     };
 
     if (user) {

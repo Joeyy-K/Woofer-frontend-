@@ -7,3 +7,4 @@ export { default as EditingPage } from './EditingPage';
 export { default as BookingPage } from './BookingPage';
 export { default as AppointmentPage } from './AppointmentPage';
 export { default as ContactUsPage } from './ContactUsPage';
+export { default as AboutUsPage } from './AboutUsPage';

@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
-import SearchBar from "../ui/Searchbar";
+import Header from "../ui/Header";
 import ProfilePic from "../ui/ProfilePic";
+import LogOut from "../ui/LogOut";
 
 const TopBar = () => {
   return (
     <section>
-      <div className="flex justify-center space-x-2 px-4">
-        <SearchBar />
+      <div className="flex text-center border-2 px-4">
+        <Link to="/home">
+          <Header/>
+        </Link>
+        <LogOut />
         <ProfilePic />
       </div>
     </section>

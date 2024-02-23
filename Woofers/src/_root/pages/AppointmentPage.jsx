@@ -1,13 +1,20 @@
 import React, { useEffect, useState  } from 'react';
+import Cookies from 'js-cookie';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AppointmentPage = () => {
     const [appointments, setAppointments] = useState([]);
+
+    let csrftoken = Cookies.get('csrftoken');
 
     const fetchUserAppointments = async () => {
         try {
           const response = await fetch('http://127.0.0.1:4000/appointments/me/', {
             headers: {
-              'Authorization': `Token ${localStorage.getItem('userToken')}`
+              'Content-Type': 'application/json',
+              'Authorization': `Token ${Cookies.get('userToken')}`,
+              'X-CSRFToken': csrftoken
             }
           });
           if (response.ok) {
@@ -32,7 +39,8 @@ const AppointmentPage = () => {
           const response = await fetch(`http://127.0.0.1:4000/appointments/${id}/delete/`, {
             method: 'DELETE',
             headers: {
-              'Authorization': `Token ${localStorage.getItem('userToken')}`
+              'Authorization': `Token ${Cookies.get('userToken')}`,
+              'X-CSRFToken': csrftoken
             }
           });
           if (!response.ok) {
@@ -40,19 +48,22 @@ const AppointmentPage = () => {
           }
 
           setAppointments(appointments.filter(appointment => appointment.id !== id));
+          toast.success("Appointment Deleted!");
         } catch (error) {
           console.error('Error deleting appointment:', error);
+          toast.error("Failed to Delete Appointment!");
         }
       };
 
       return (
         <div className="bg-gray-100 container mx-auto mb-40">
+          <div className="items-center justify-center"><ToastContainer /></div>
           <div className="mt-3 relative text-center w-full py-4 rounded bg-indigo-600">
             <h1 className="text-white font-bold px-3">
               Your Appointments
             </h1> 
           </div>
-          {appointments.length > 0 && (
+          {appointments.length > 0 ? (
             <div className="border-l-2 border-gray-500 pl-8 text-center">
               {appointments.map((appointment, index)  => (
                 <div key={index} className="mt-3 font-medium text-base justify-center">
@@ -102,6 +113,12 @@ const AppointmentPage = () => {
                 </div>
               ))}
             </div>
+            ) : (
+              <div className="mt-3 relative text-center w-full h-full py-4 rounded bg-gray-200">
+                <h2 className="">
+                  You have no appointments scheduled!
+                </h2>
+              </div>
           )}
         </div>
       )

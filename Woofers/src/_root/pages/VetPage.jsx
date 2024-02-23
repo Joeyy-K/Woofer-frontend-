@@ -83,12 +83,12 @@ const VetPage = () => {
   }
 
   return (
-    <div className="bg-gray-100 container mx-auto ">
+    <div className="bg-gray-100 ">
       <div className="items-center justify-center"><ToastContainer /></div>
-      <div className="flex flex-wrap mb-24">
+      <div className="flex flex-wrap mb-24 container mx-auto ">
         <div className="w-full md:w-1/4 border-r">
           <div className="flex flex-col items-center text-center p-3">
-            <img className="rounded-full mt-2 w-36" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"/>
+            <img className="rounded-full mt-2 w-36" src={vet.profile_picture}/>
             <span className="font-bold">{vet.first_name} {vet.last_name}</span>
             <div className="w-full">
               <hr className="my-4 bg-gray-300 h-1"/>
@@ -119,12 +119,12 @@ const VetPage = () => {
               <h4 className="text-right font-bold">Your Veterinarian</h4>
             </div>
             <hr className="my-4 bg-gray-300 h-1"/>
-          <div className="flex flex-wrap mt-2">
-            <div className="w-full">
-              <label className="block mb-3 text-x font-bold text-gray-900 dark:text-white">Bio</label>
-              <textarea className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-40" placeholder="Review"></textarea>
+            <div className="flex flex-wrap mt-2">
+              <div className="w-full">
+                  <label className="block mb-3 text-x font-bold text-gray-900 dark:text-white">Bio</label>
+                  <p id="bio" className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-auto">{vet.bio}</p>
+              </div>
             </div>
-          </div>  
           <div>
             <Link to={'/booking/'}>
               <button

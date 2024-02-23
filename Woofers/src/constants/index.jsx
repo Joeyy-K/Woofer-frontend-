@@ -7,7 +7,7 @@ export const bottombarlinks = [
     {
         imgURL: '/icons/veterinary.svg',
         route: '/veterinaries',
-        label: 'Veterinaries',
+        label: 'Veterinarians',
     },
     {
         imgURL: '/icons/appointment.svg',

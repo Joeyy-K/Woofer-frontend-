@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom"
 import { AuthContext } from '../../contexts/AuthContext'; // import the 
 import { UserContext } from '../../contexts/UserContext';
 import Cookies from 'js-cookie';
-import { getCookie } from '../../components/cookie/utils';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
@@ -15,7 +14,7 @@ const SignInForm = () => {
   const { setUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  let csrftoken = getCookie('csrftoken');
+  let csrftoken = Cookies.get('csrftoken');
 
   const isFormValid = email && password;
 

@@ -4,6 +4,8 @@ import { AuthContext } from '../../contexts/AuthContext';
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
 import { logoutUser } from '../../components/api/api';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SettingsPage = () => {
   const { setIsAuthenticated } = useContext(AuthContext);
@@ -23,12 +25,14 @@ const SettingsPage = () => {
       }
     } catch (error) {
       console.error('Error during logout:', error);
+      toast.error("Failed To Logout!");
     }
   };
   
 
   return (
     <div className="bg-gray-100 container mx-auto mb-24">
+      <div className="items-center justify-center"><ToastContainer /></div>
       <div>
         <div className="mt-3 items-center w-full py-4 rounded bg-indigo-600">
           <p className="text-white font-bold px-3">General Settings</p>
