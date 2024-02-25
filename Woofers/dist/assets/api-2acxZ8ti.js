@@ -1,0 +1,1 @@
+import{a as r}from"./index-w1UzHfgm.js";const s=async()=>{try{const e=await fetch(`${r}veterinaries/`);return e.ok?await e.json():(console.error("Failed to fetch data"),null)}catch(e){return console.error("Error fetching data:",e),null}},a=async()=>(await fetch(`${r}/user/logout/`,{method:"POST"})).ok?!0:(console.error("Logout failed"),!1);export{s as f,a as l};
