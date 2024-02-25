@@ -1,5 +1,7 @@
+import { API_URL } from "../url/url";
+
 export function fetchCSRFToken() {
-    fetch('http://127.0.0.1:4000/csrf/')
+    fetch(`${API_URL}/csrf/`)
       .then(response => response.json())
       .then(data => console.log(data))
       .catch((error) => {

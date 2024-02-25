@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { AuthContext } from '../../contexts/AuthContext'; // import the AuthContext
 import { UserContext } from '../../contexts/UserContext';
 import Cookies from 'js-cookie';
+import { API_URL } from '../../components/url/url';
 import { getCookie } from '../../components/cookie/utils';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -70,7 +71,7 @@ const RegisterPage = () => {
     setIsLoading(true);
 
       new Promise((resolve, reject) => {
-        fetch('http://127.0.0.1:4000/user/register/', {
+        fetch(`${API_URL}/user/register/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -101,7 +102,6 @@ const RegisterPage = () => {
             toast.success("Successfully registered!");
             setIsAuthenticated(true);
             setUser(data.user);
-            console.log(data.user);
             Cookies.set('isAuthenticated', 'true');
             Cookies.set('user', JSON.stringify(data.user));
             Cookies.set('userToken', data.token);

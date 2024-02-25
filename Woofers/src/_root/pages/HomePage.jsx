@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchVeterinaries } from '../../components/api/api';
+import { API_URL } from '../../components/url/url';
 
 const HomePage = () => {
   const [vets, setVets] = useState([]);
@@ -17,7 +18,7 @@ const HomePage = () => {
         setVets(data);
       }
 
-      const countryResponse = await fetch('http://127.0.0.1:4000/countries/');
+      const countryResponse = await fetch(`${API_URL}/countries/`);
       const countryData = await countryResponse.json();
       setCountries(countryData);
     };
@@ -27,7 +28,7 @@ const HomePage = () => {
 
   useEffect(() => {
     const fetchCities = async () => {
-      const response = await fetch('http://127.0.0.1:4000/cities/');
+      const response = await fetch(`${API_URL}/cities/`);
       const data = await response.json();
       if (data) {
         setCities(data);

@@ -1,6 +1,8 @@
+import { API_URL } from "../url/url";
+
 export const fetchVeterinaries = async () => {
   try {
-    const response = await fetch('http://127.0.0.1:4000/veterinaries/');
+    const response = await fetch(`${API_URL}veterinaries/`);
     if (response.ok) {
       const data = await response.json();
       return data;
@@ -15,7 +17,7 @@ export const fetchVeterinaries = async () => {
 };
 
 export const logoutUser = async () => {
-  const response = await fetch('http://127.0.0.1:4000/user/logout/', { method: 'POST' });
+  const response = await fetch(`${API_URL}/user/logout/`, { method: 'POST' });
   if (response.ok) {
     return true;
   } else {

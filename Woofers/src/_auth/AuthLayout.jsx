@@ -6,7 +6,7 @@ const AuthLayout = () => {
   const { isAuthenticated, isLoading } = useContext(AuthContext); // consume the AuthContext
 
   if (isLoading) {
-    return <div>Loading...</div>; // or your custom loading component
+    return <div>Loading...</div>;
   }
 
   return (

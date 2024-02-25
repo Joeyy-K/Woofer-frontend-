@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import { UserContext } from '../../contexts/UserContext';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_URL } from '../../components/url/url';
 
 const EditingPage = () => {
     const { user, setUser } = useContext(UserContext);
@@ -22,7 +23,7 @@ const EditingPage = () => {
             username: username
         };
 
-        fetch('http://127.0.0.1:4000/user/update/', {
+        fetch(`${API_URL}/user/update/`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

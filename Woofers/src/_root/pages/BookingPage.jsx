@@ -3,6 +3,7 @@ import { VetContext } from '../../contexts/VetContext';
 import Cookies from 'js-cookie';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_URL } from '../../components/url/url';
 
 const BookingPage = () => {
     const [appointmentDate, setAppointmentDate] = useState('');
@@ -14,7 +15,7 @@ const BookingPage = () => {
 
     const handleAppointmentSubmit = async () => {
         try {
-          const response = await fetch('http://127.0.0.1:4000/appointments/', {
+          const response = await fetch(`${API_URL}/appointments/`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -35,7 +36,6 @@ const BookingPage = () => {
       
           const data = await response.json();
           toast.success("Appointment Created!");
-          console.log('Appointment created:', data);
         } catch (error) {
           console.error('Error:', error);
           toast.error("Failed to Create Appointment!");
