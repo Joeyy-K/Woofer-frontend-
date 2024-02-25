@@ -1,1 +1,1 @@
-export const API_URL = 'http://joeyyk.pythonanywhere.com/';
+export const API_URL = 'https://joeyyk.pythonanywhere.com/';
