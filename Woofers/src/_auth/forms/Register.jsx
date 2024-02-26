@@ -109,7 +109,7 @@ const RegisterPage = () => {
           });
         } else if (response.status === 400) {
             return response.json().then((data) => {
-              toast.error("Please fill in all the fields!");
+              toast.error(data.error);
               setIsLoading(false);
               setError(data.error); 
         })
