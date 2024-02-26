@@ -3,7 +3,7 @@ import { Outlet, Navigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 
 const AuthLayout = () => {
-  const { isAuthenticated, isLoading } = useContext(AuthContext); // consume the AuthContext
+  const { isAuthenticated, isLoading } = useContext(AuthContext); 
 
   if (isLoading) {
     return <div>Loading...</div>;
