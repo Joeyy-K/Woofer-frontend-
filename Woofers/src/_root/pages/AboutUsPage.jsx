@@ -4,7 +4,7 @@ const AboutUsPage = () => {
   return (
     <div className="sm:flex items-center max-w-screen-xl mb-24">
         <div className="sm:w-1/2 ">
-            <div className="image object-center text-center">
+            <div className="image object-center text-center px-20">
                 <img src="/images/platypus.png" style={{ width: '50%' }}/>
             </div>
         </div>
