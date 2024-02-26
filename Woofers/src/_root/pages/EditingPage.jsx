@@ -57,7 +57,7 @@ const EditingPage = () => {
             <div className="flex flex-wrap">
                 <div className="w-full md:w-1/4 border-r">
                     <div className="flex flex-col items-center text-center p-3 py-5">
-                        <img className="rounded-full mt-5 w-36" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"/>
+                        <img className="rounded-full mt-5 w-36" src={`${API_URL}${user.profile_picture}`} alt="User Profile"/>
                         <span className="font-semibold">{user.username}</span>
                         <span className="text-gray-500">{user.email}</span>
                     </div>
