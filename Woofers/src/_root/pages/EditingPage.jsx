@@ -58,6 +58,7 @@ const EditingPage = () => {
                 <div className="w-full md:w-1/4 border-r">
                     <div className="flex flex-col items-center text-center p-3 py-5">
                         <img className="rounded-full mt-5 w-36" src={`${API_URL}${user.profile_picture}`} alt="User Profile"/>
+
                         <span className="font-semibold">{user.username}</span>
                         <span className="text-gray-500">{user.email}</span>
                     </div>

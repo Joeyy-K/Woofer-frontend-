@@ -43,7 +43,14 @@ export default function App() {
   return (
     <UserProvider>
       <main className='flex h-screen'>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={
+          <div className="w-1/2 m-auto h-auto">
+            <div className="flex items-center justify-center space-x-2 animate-bounce">
+              <div className="w-8 h-8 bg-indigo-600 rounded-full"></div>
+              <div className="w-8 h-8 bg-gray-400 rounded-full"></div>
+              <div className="w-8 h-8 bg-black rounded-full"></div>
+            </div>
+          </div>}>
           <Routes>
             {/* public routes */}
             <Route element={<AuthLayout />}>
