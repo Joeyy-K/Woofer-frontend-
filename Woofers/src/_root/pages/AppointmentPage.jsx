@@ -2,6 +2,7 @@ import React, { useEffect, useState  } from 'react';
 import Cookies from 'js-cookie';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_URL } from '../../components/url/url';
 
 const AppointmentPage = () => {
     const [appointments, setAppointments] = useState([]);
@@ -10,7 +11,7 @@ const AppointmentPage = () => {
 
     const fetchUserAppointments = async () => {
         try {
-          const response = await fetch('http://127.0.0.1:4000/appointments/me/', {
+          const response = await fetch(`${API_URL}/appointments/me/`, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Token ${Cookies.get('userToken')}`,
@@ -19,7 +20,6 @@ const AppointmentPage = () => {
           });
           if (response.ok) {
             const data = await response.json();
-            console.log('Appointments:', data); 
             setAppointments(data);
           } else {
             console.error('Failed to fetch user appointments');
@@ -34,9 +34,8 @@ const AppointmentPage = () => {
       }, []);
 
       const deleteAppointment = async (id) => {
-        console.log('Deleting appointment with id:', id);
         try {
-          const response = await fetch(`http://127.0.0.1:4000/appointments/${id}/delete/`, {
+          const response = await fetch(`${API_URL}/appointments/${id}/delete/`, {
             method: 'DELETE',
             headers: {
               'Authorization': `Token ${Cookies.get('userToken')}`,

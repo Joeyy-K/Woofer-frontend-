@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import { UserContext } from '../../contexts/UserContext';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_URL } from '../../components/url/url';
 
 const EditingPage = () => {
     const { user, setUser } = useContext(UserContext);
@@ -22,7 +23,7 @@ const EditingPage = () => {
             username: username
         };
 
-        fetch('http://127.0.0.1:4000/user/update/', {
+        fetch(`${API_URL}/user/update/`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -56,7 +57,8 @@ const EditingPage = () => {
             <div className="flex flex-wrap">
                 <div className="w-full md:w-1/4 border-r">
                     <div className="flex flex-col items-center text-center p-3 py-5">
-                    <img className="rounded-full mt-5 w-36" src={`http://127.0.0.1:4000${user.profile_picture}`} alt="User Profile"/>
+                        <img className="rounded-full mt-5 w-36" src={`${API_URL}${user.profile_picture}`} alt="User Profile"/>
+
                         <span className="font-semibold">{user.username}</span>
                         <span className="text-gray-500">{user.email}</span>
                     </div>

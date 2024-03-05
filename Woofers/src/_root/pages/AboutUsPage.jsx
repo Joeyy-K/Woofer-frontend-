@@ -2,10 +2,10 @@ import React from 'react'
 
 const AboutUsPage = () => {
   return (
-    <div className="sm:flex items-center max-w-screen-xl">
+    <div className="sm:flex items-center max-w-screen-xl mb-24">
         <div className="sm:w-1/2 ">
-            <div className="image object-center text-center">
-                <img src="/images/platypus.png"/>
+            <div className="image object-center text-center px-20">
+                <img src="/images/platypus.png" style={{ width: '80%' }}/>
             </div>
         </div>
         <div className="sm:w-1/2 p-3">

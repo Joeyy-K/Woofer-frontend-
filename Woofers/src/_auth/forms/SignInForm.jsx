@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { AuthContext } from '../../contexts/AuthContext'; // import the 
 import { UserContext } from '../../contexts/UserContext';
 import Cookies from 'js-cookie';
+import { API_URL } from '../../components/url/url';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
@@ -52,7 +53,7 @@ const SignInForm = () => {
     setIsLoading(true);
 
     new Promise((resolve, reject) => {
-      fetch('http://127.0.0.1:4000/user/login/', {
+      fetch(`${API_URL}/user/login/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -79,7 +80,6 @@ const SignInForm = () => {
           setPassword('');
           setError('');
           setUser(data.user);
-          console.log(data.user);
           setIsAuthenticated(true);
           Cookies.set('isAuthenticated', 'true');
           Cookies.set('user', JSON.stringify(data.user));
@@ -117,8 +117,7 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="max-w-md sm:w-420 flex-center flex-col mx-auto">
-      
+    <div className="max-w-md sm:w-420 flex-center flex-col mx-auto">   
       <h1 className="text-2xl font-extrabold mb-5 sm:pt-12">Login</h1>
       {error && 
       <div className="bg-red-200 px-4 py-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">

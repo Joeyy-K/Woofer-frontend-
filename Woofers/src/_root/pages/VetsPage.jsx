@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchVeterinaries } from '../../components/api/api';
 import Loader from '../../components/ui/Loader';
+import { API_URL } from '../../components/url/url';
 
 const VetsPage = () => {
   const [vets, setVets] = useState([]);
@@ -28,7 +29,7 @@ const VetsPage = () => {
   useEffect(() => {
     const fetchCities = async () => {
       setIsLoading(true);
-      const response = await fetch('http://127.0.0.1:4000/cities/');
+      const response = await fetch(`${API_URL}/cities/`);
       const data = await response.json();
       if (data) {
         setCities(data);

@@ -20,7 +20,6 @@ const SettingsPage = () => {
         Cookies.remove("user");
         Cookies.remove("userToken"); 
         Cookies.remove("token"); 
-        Cookies.remove('csrftoken', { path: '/', domain: '127.0.0.1', secure: true, sameSite: 'lax' });
         setUser(null);
       }
     } catch (error) {
