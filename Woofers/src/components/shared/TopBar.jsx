@@ -6,7 +6,7 @@ import LogOut from "../ui/LogOut";
 const TopBar = () => {
   return (
     <section>
-      <div className="flex text-center border-2 px-4">
+      <div className="flex w-full text-center border-2 px-4">
         <Link to="/home">
           <Header/>
         </Link>
