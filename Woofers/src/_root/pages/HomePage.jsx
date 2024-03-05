@@ -7,6 +7,7 @@ const HomePage = () => {
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
   const [cityFilter, setCityFilter] = useState('');
+  const [countryFilter, setCountryFilter] = useState('');
   const [start, setStart] = useState(0);
 
 
@@ -49,8 +50,13 @@ const HomePage = () => {
     setCityFilter(event.target.value);
   }
 
+  const handleCountryFilterChange = (event) => {
+    setCountryFilter(event.target.value);
+  }
+
   const filteredVets = vets.filter(vet => 
-    (cityFilter === '' || vet.city.name === cityFilter)
+    (cityFilter === '' || vet.city.name === cityFilter) && 
+    (countryFilter == '' || vet.city.country.name === countryFilter)
   );
 
   return (
@@ -85,46 +91,32 @@ const HomePage = () => {
         </div>
       </section>
       <div className="flex justify-center space-x-12 mb-2">
-        <div className="relative inline-block text-left">
-          <div className="group">
-            <button type="button"
-              className="inline-flex rounded-lg justify-center items-center w-full px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
-              Country
-              <svg className="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10 12l-5-5h10l-5 5z" />
-              </svg>
-            </button>
+      <div className="relative inline-block text-left">
+        <div className="group">  
           <div
-            className="absolute left-0 w-40 mt-0 origin-top-left bg-white divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
-            <div className="py-1">
-              {countries.map((country) => (
-                <a key={country.id} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{country.name}</a>
-              ))}
+            className="">
+            <div style={{ maxHeight: '150px', overflowY: 'auto' }}>
+            <select onChange={handleCountryFilterChange} className="inline-flex rounded-lg justify-center items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
+                  <option value="">Country</option>
+                  {countries.map(country => (
+                  <option key={country.name} value={country.name}>{country.name}</option>
+                  ))}
+                </select>
             </div>
           </div>
         </div>
-        </div>
+      </div>
       <div className="relative inline-block text-left">
-        <div className="group">
-          <button type="button"
-            className="inline-flex rounded-lg justify-center items-center w-full px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-400">
-            City
-            <svg className="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10 12l-5-5h10l-5 5z" />
-            </svg>
-          </button>
+        <div className="group">  
           <div
-            className="absolute left-0 w-40 mt-0 origin-top-left bg-white divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
-            <div className="py-1" style={{ maxHeight: '150px', overflowY: 'auto' }}>
-              {cities.map((city) => (
-                <button 
-                  key={city.id} 
-                  onClick={() => handleCityFilterChange({target: {value: city.name}})}
-                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  {city.name}
-                </button>
-              ))}
+            className="">
+            <div style={{ maxHeight: '150px', overflowY: 'auto' }}>
+            <select onChange={handleCityFilterChange} className="inline-flex rounded-lg justify-center items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
+                  <option value="">City</option>
+                  {cities.map(city => (
+                  <option key={city.name} value={city.name}>{city.name}</option>
+                  ))}
+                </select>
             </div>
           </div>
         </div>

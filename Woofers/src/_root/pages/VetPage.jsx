@@ -121,15 +121,41 @@ const VetPage = () => {
             <hr className="my-4 bg-gray-300 h-1"/>
             <div className="flex flex-wrap mt-2">
               <div className="w-full">
-                  <label className="block mb-3 text-x font-bold text-gray-900 dark:text-white">Bio</label>
-                  <p id="bio" className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-auto">{vet.bio}</p>
+                  <label className="block mb-3 font-bold text-gray-900 dark:text-white">Bio</label>
+                  <p id="bio" className="bg-gray-50 border border-gray-300 text-gray-900 text-m rounded-lg  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white h-auto">{vet.bio}</p>
               </div>
             </div>
+            <div className="flex flex-wrap mt-4">
+              <div className="w-full">
+                  <label className="block mb-3 font-bold text-gray-900 dark:text-white">Live Location:</label>
+                  <div className="flex">
+                  <a className="flex p-2 border-4 border-gray-300 border-" href={`https://www.google.com/maps/search/?api=1&query=${vet.city.latitude},${vet.city.longitude}`} target="_blank" rel="noopener noreferrer">
+                    Open Location in Google Maps
+                    <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" 
+                      className="w-5 h-5 mx-1" viewBox="0 0 64 64" enableBackground="new 0 0 64 64" xmlSpace="preserve">
+                    <g>
+                      <path fill="#F76D57" d="M32,52.789l-12-18C18.5,32,16,28.031,16,24c0-8.836,7.164-16,16-16s16,7.164,16,16
+                        c0,4.031-2.055,8-4,10.789L32,52.789z"/>
+                      <g>
+                        <path fill="#394240" d="M32,0C18.746,0,8,10.746,8,24c0,5.219,1.711,10.008,4.555,13.93c0.051,0.094,0.059,0.199,0.117,0.289
+                          l16,24C29.414,63.332,30.664,64,32,64s2.586-0.668,3.328-1.781l16-24c0.059-0.09,0.066-0.195,0.117-0.289
+                          C54.289,34.008,56,29.219,56,24C56,10.746,45.254,0,32,0z M44,34.789l-12,18l-12-18C18.5,32,16,28.031,16,24
+                          c0-8.836,7.164-16,16-16s16,7.164,16,16C48,28.031,45.945,32,44,34.789z"/>
+                        <circle fill="#394240" cx="32" cy="24" r="8"/>
+                      </g>
+                    </g>
+                    </svg>
+                  </a>       
+                  <p className="text-red-600 font-bold m-2">{"<--"} to google maps</p>
+                  </div>
+              </div>
+            </div>
+            <hr className="my-4 bg-gray-300 h-1"/> 
           <div>
             <Link to={'/booking/'}>
               <button
                 onClick={() => handleBookAppointmentClick(vet.id)}
-                className={"bg-indigo-600 hover:bg-indigo-500 text-white mt-4  w-full py-2 rounded-md"}
+                className={"bg-indigo-600 hover:bg-indigo-500 text-white mt-4 mb-4 w-full py-2 rounded-md"}
               >
                 Book Your Appointment
               </button>
