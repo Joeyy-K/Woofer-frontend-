@@ -6,6 +6,7 @@ import { VetContext } from '../../contexts/VetContext';
 import Cookies from 'js-cookie';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_URL } from '../../components/url/url';
 
 const VetPage = () => {
   const { id } = useParams();
@@ -25,7 +26,7 @@ const VetPage = () => {
 
   const handleSendClick = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:4000/reviews/', {
+      const response = await fetch(`${API_URL}/reviews/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,7 +45,6 @@ const VetPage = () => {
   
       const data = await response.json();
       toast.success("Review Posted!");
-      console.log('Review posted:', data);
       setReviews(prevReviews => [...prevReviews, data]);
     } catch (error) {
       console.error('Error:', error);
@@ -55,12 +55,11 @@ const VetPage = () => {
   useEffect(() => {
     const fetchVetDetails = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:4000/veterinary/${id}`);
+        const response = await fetch(`${API_URL}/veterinary/${id}`);
         if (response.ok) {
           const data = await response.json();
           setVetDetails(data);
           setReviews(data.reviews);  
-          console.log(data)
         } else {
           console.error('Failed to fetch vet details');
         }

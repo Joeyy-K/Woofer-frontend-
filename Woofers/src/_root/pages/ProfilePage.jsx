@@ -5,6 +5,7 @@ import { logoutUser } from '../../components/api/api';
 import { AuthContext } from '../../contexts/AuthContext';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_URL } from '../../components/url/url';
 
 const ProfilePage = () => {
   const { setIsAuthenticated } = useContext(AuthContext);
@@ -20,7 +21,6 @@ const ProfilePage = () => {
         Cookies.remove("user");
         Cookies.remove("userToken"); 
         Cookies.remove("token"); 
-        Cookies.remove('csrftoken', { path: '/', domain: '127.0.0.1', secure: true, sameSite: 'lax' });
         setUser(null);
       }
     } catch (error) {
@@ -36,7 +36,7 @@ const ProfilePage = () => {
         <div className="flex flex-wrap">
           <div className="w-full md:w-1/4 border-r">
             <div className="flex flex-col items-center text-center p-3 py-5">
-              <img className="rounded-full mt-5 w-36" src={`http://127.0.0.1:4000${user.profile_picture}`} alt="User Profile"/>
+              <img className="rounded-full mt-5 w-36" src={`${API_URL}${user.profile_picture}`} alt="User Profile"/>
               <span className="font-semibold">{user.username}</span>
               <span className="text-gray-500">{user.email}</span>
             </div>
@@ -99,8 +99,8 @@ const ProfilePage = () => {
           </div>        
           <div className="w-full md:w-1/4">
             <div className="p-3">
-              <div className="flex justify-between items-center mb-3 px-5">
-                <Link to="">
+              <div className="flex relative justify-between items-center mb-3 px-1">
+                <Link to="/about">
                   <button className="inline-flex items-center px-4 py-2 text-sm text-gray-900 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200">
                     <svg className="w-5 h-5" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                       <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
@@ -114,7 +114,7 @@ const ProfilePage = () => {
                   </button>
                 </Link>
               </div>
-              <div className="flex justify-between items-center py-3 px-5">
+              <div className="flex justify-between items-center py-3 px-1">
                 <Link to='/settings'>
                   <button className="inline-flex items-center px-4 py-2 text-sm text-gray-900 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200">
                     <svg className="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -124,7 +124,7 @@ const ProfilePage = () => {
                   </button>
                 </Link>
               </div>
-              <div className="flex justify-between items-center py-3 px-5">
+              <div className="flex justify-between items-center py-3 px-1">
                 <button onClick={handleLogout} className="inline-flex items-center px-4 py-2 text-sm text-gray-900 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors duration-200">
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15 16.5V19C15 20.1046 14.1046 21 13 21H6C4.89543 21 4 20.1046 4 19V5C4 3.89543 4.89543 3 6 3H13C14.1046 3 15 3.89543 15 5V8.0625M11 12H21M21 12L18.5 9.5M21 12L18.5 14.5" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

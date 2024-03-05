@@ -1,24 +1,24 @@
-import React, { useContext, useEffect } from 'react'; // import useContext and useEffect
+import React, { useContext, useEffect } from 'react'; 
 import { useNavigate } from 'react-router-dom';
 import TopBar from '../components/shared/TopBar';
 import BottomBar from '../components/shared/BottomBar';
 import { Outlet } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext'; // import the AuthContext\
+import { AuthContext } from '../contexts/AuthContext'; 
 
 
 const RootLayout = () => {
-  const { isAuthenticated, isLoading } = useContext(AuthContext); // consume the AuthContext
+  const { isAuthenticated, isLoading } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/'); // replace '/home' with the path you want to redirect authenticated users to
+      navigate('/'); 
     }
   }, [isAuthenticated, navigate]);
 
 
   if (isLoading) {
-    return <div>Loading...</div>; // or your custom loading component
+    return <div>Loading...</div>;
   }
 
   return (
