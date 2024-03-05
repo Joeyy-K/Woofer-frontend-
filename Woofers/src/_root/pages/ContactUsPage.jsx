@@ -4,6 +4,10 @@ const ContactUsPage = () => {
   return (
     <section className="w-full relative container bg-gray-100 text-white">
         <div className="mx-auto px-5">
+            <form
+                action="https://getform.io/f/7axP2lay"
+                method="POST"
+            >
             <div className="mb-12 flex w-full flex-col text-center bg-indigo-600 py-6 rounded-xl">
             <h1 className="title-font mb-4 text-2xl font-medium text-white sm:text-3xl">Contact Us</h1>
             <p className="mx-auto text-base leading-relaxed lg:w-2/3">Feel free to reach out to us! Whether you have a question,
@@ -35,6 +39,7 @@ const ContactUsPage = () => {
                 </div>
             </div>
             </div>
+            </form>
         </div>
     </section>
   )

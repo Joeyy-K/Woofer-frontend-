@@ -119,13 +119,6 @@ const SignInForm = () => {
   return (
     <div className="max-w-md sm:w-420 flex-center flex-col mx-auto">   
       <h1 className="text-2xl font-extrabold mb-5 sm:pt-12">Login</h1>
-      {isLoading && 
-      <button type="button" className="py-2 px-4 my-4 flex justify-center items-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg max-w-md">
-        <svg width="10" height="10" fill="currentColor" className="mr-2 animate-spin" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-          <path d="M526 1394q0 53-37.5 90.5t-90.5 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm498 206q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm1202 498q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-964-996q0 66-47 113t-113 47-113-47-47-113 47-113 113-47 113 47 47 113zm1170 498q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-640-704q0 80-56 136t-136 56-136-56-56-136 56-136 136-56 136 56 56 136zm530 206q0 93-66 158.5t-158 65.5q-93 0-158.5-65.5t-65.5-158.5q0-92 65.5-158t158.5-66q92 0 158 66t66 158z"></path>
-        </svg>
-      loading
-      </button>}
       {error && 
       <div className="bg-red-200 px-4 py-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
         <svg viewBox="0 0 24 24" className="text-red-600 w-5 h-5 sm:w-5 sm:h-5 mr-3">
@@ -175,9 +168,20 @@ const SignInForm = () => {
       </form>
       <button
         onClick={handleLogin}
-        className={"bg-blue-500 text-white mt-4  w-full py-2 rounded-md"}
+        className="bg-indigo-600 text-white mt-4 w-full py-2 rounded-md flex items-center justify-center"
       >
-        Login
+      {isLoading ? (
+        <svg
+          className="animate-spin h-5 w-5 mr-3"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          />
+        </svg>
+        ) : null}
+      {isLoading ? 'Loading...' : 'Login'}
       </button>
       <p className="p-4 text-center font-extrabold">Dont't have an account? <Link to="/register" className="text-red-500 hover:underline">Sign Up here</Link></p>
     </div>
